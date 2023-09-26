@@ -1,10 +1,21 @@
-import { Counter } from "./features/Counter";
-
+import { RootState } from "./app/store";
+import { useSelector, useDispatch } from 'react-redux'
+import { increment } from "./features/webTheme/themeSlice";
 const App = () => {
+  const theme=useSelector((state: RootState) => state.theme.value)
+  const containerStyle = {
+    background: theme ? 'white' : 'black',
+    color: theme ? 'black' : 'white',
+    minHeight: '100vh',
+    transition: 'background 0.3s, color 0.3s', 
+  };
+  
+  const dispatch=useDispatch()
   return (
-    <div>
-      <h2 className="text-red-200">React Developer</h2>
-      <Counter></Counter>
+    <div style={containerStyle} >
+      <h2 >React Developer</h2>
+    
+      <button onClick={()=>dispatch(increment())}>Toggle</button>
     </div>
   );
 };
